@@ -34,9 +34,10 @@ class MainActivity : AppCompatActivity(),ContractInterface.View {
 
         presenter = MainActivityPresenter(this@MainActivity)
         button = findViewById(R.id.button)
+        spinner = findViewById(R.id.progressBar)
         progressBar.visibility = View.GONE
+
         button.setOnClickListener {
-            spinner = findViewById(R.id.progressBar)
 
             progressBar.visibility = View.VISIBLE
             presenter.iWasClicked(date)

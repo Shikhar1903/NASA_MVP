@@ -13,7 +13,7 @@ interface ContractInterface {
     interface Presenter{
 
         fun getImageUrl(date:String):String
-        fun iWasClicked(url:String)
+        fun iWasClicked(date:String)
 
     }
 

@@ -30,7 +30,7 @@ class MainActivityModel: ContractInterface.Model{
             override fun onResponse(call: Call<Items>, response: Response<Items>) {
 
                try{ checkImageURL= response.body()!!.url}
-               catch (e:Exception){checkImageURL="http://via.placeholder.com/150x150.jpg?text=No+Image+Found"}
+               catch (e:Exception){checkImageURL="https://via.placeholder.com/150x150.jpg?text=No+Image+Found"}
                 if(checkImageURL.indexOf(".jpg")==-1)
                     checkImageURL="https://via.placeholder.com/150x150.jpg?text=No+Image+Found"
                 listener?.finishedLoading(checkImageURL)

@@ -24,9 +24,6 @@ class MainActivityPresenter(_view:ContractInterface.View):ContractInterface.Pres
     override fun getImageUrl(date:String): String {
 
         d("check at presenter",""+model.getListOfDates(date))
-        if(model.getListOfDates(date) == "bruh")
-            model.getListOfDates(date)
-
         return model.getListOfDates(date)
     }
 
