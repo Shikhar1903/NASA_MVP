@@ -37,8 +37,8 @@ class MainActivityModel: ContractInterface.Model{
                 d("check url in model",""+checkImageURL)
             }
         })
-        //Why does NASA upload a video in Picture Of The Day?!Weird.
-        return checkImageURL 
+        //Why does NASA upload a video in Picture Of The Day?!Weird
+        return checkImageURL
     }
 
     interface onFinishedListener{
