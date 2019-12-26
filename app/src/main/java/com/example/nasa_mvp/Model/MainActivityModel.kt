@@ -38,7 +38,7 @@ class MainActivityModel: ContractInterface.Model{
             }
         })
         //Why does NASA upload a video in Picture Of The Day?!Weird.
-        return checkImageURL
+        return checkImageURL 
     }
 
     interface onFinishedListener{
