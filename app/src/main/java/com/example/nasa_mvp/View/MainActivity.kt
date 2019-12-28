@@ -3,6 +3,7 @@ package com.example.nasa_mvp.View
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log.d
 import android.view.View
@@ -12,6 +13,10 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.example.nasa_mvp.Contract.ContractInterface
 import com.example.nasa_mvp.Presenter.MainActivityPresenter
 import com.example.nasa_mvp.R
@@ -50,7 +55,7 @@ class MainActivity : AppCompatActivity(),ContractInterface.View {
             var month: Int = cal.get(Calendar.MONTH)
             var day: Int = cal.get(Calendar.DAY_OF_MONTH)
             var dialog = DatePickerDialog(
-                this@MainActivity, android.R.style.Theme_Holo_Dialog_NoActionBar_MinWidth,
+                this@MainActivity, android.R.style.Theme_Material_Dialog_NoActionBar_MinWidth,
                 mDateSetListener, year, month, day
             )
             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -64,7 +69,6 @@ class MainActivity : AppCompatActivity(),ContractInterface.View {
                 textView.text = date
 
             }
-
     }
 
     override fun updateViewData(url: String) {
@@ -74,9 +78,18 @@ class MainActivity : AppCompatActivity(),ContractInterface.View {
 
         Glide.with(this)
             .load(url)
-            .into(APOD)
-        progressBar.visibility = View.GONE
+            .listener(object : RequestListener<Drawable> {
+                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                    progressBar.visibility = View.GONE
+                    return false
+                }
 
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                    progressBar.visibility = View.GONE
+                    return false
+                }
+            })
+            .into(APOD)
     }
 
     fun getCalculatedDate(dateFormat: String, days: Int): String {
