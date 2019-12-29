@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(),ContractInterface.View {
         button.setOnClickListener {
 
             progressBar.visibility = View.VISIBLE
-            presenter.iWasClicked(date)
+            presenter.iWasClicked(date,this)
         }
 
         textView.setOnClickListener {

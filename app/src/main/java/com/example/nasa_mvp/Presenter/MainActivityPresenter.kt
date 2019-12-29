@@ -1,5 +1,6 @@
 package com.example.nasa_mvp.Presenter
 
+import android.content.Context
 import android.util.Log.d
 import com.example.nasa_mvp.Contract.ContractInterface
 import com.example.nasa_mvp.Model.MainActivityModel
@@ -10,9 +11,9 @@ class MainActivityPresenter(_view:ContractInterface.View):ContractInterface.Pres
     var model:ContractInterface.Model=MainActivityModel()
 
 
-    override fun iWasClicked(date:String) {
+    override fun iWasClicked(date:String,context: Context) {
 
-        getImageUrl(date)
+        getImageUrl(date,context)
         model.setOnFinishedListener(this)
     }
 
@@ -21,10 +22,10 @@ class MainActivityPresenter(_view:ContractInterface.View):ContractInterface.Pres
         view.updateViewData(imageUrl)
     }
 
-    override fun getImageUrl(date:String): String {
+    override fun getImageUrl(date:String,context: Context): String {
 
-        d("check at presenter",""+model.getListOfDates(date))
-        return model.getListOfDates(date)
+        d("check at presenter",""+model.getListOfDates(date,context))
+        return model.getListOfDates(date,context)
     }
 
 }

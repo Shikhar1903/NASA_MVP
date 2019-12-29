@@ -4,5 +4,6 @@ data class Items (
 
     val url:String,
     val explanation:String,
-    val code:Int
+    val title:String,
+    val date:String
 )
