@@ -24,8 +24,9 @@ class MainActivityPresenter(_view:ContractInterface.View):ContractInterface.Pres
 
     override fun getImageUrl(date:String,context: Context): String {
 
-        d("check at presenter",""+model.getListOfDates(date,context))
-        return model.getListOfDates(date,context)
+        var url_temp=model.getListOfDates(date,context)
+        d("check at presenter",""+url_temp)
+        return url_temp
     }
 
 }

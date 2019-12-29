@@ -32,6 +32,11 @@ class MainActivityModel: ContractInterface.Model{
         db= AppDatabase.getAppDataBase(context)
         roomDao=db?.roomItemsDAO()
 
+        var roomItemsEntity3=roomDao?.getUrlInfo(date)
+        if(roomItemsEntity3?.room_url!=null) {
+            listener?.finishedLoading(roomItemsEntity3!!.room_url)
+            return roomItemsEntity3.room_url
+        }
         api.fetchPictureData("DEMO_KEY",date).enqueue(object: retrofit2.Callback<Items> {
             override fun onFailure(call: Call<Items>, t: Throwable) {
             }
@@ -42,14 +47,20 @@ class MainActivityModel: ContractInterface.Model{
                 if(checkImageURL.indexOf(".jpg")==-1)
                     checkImageURL="https://via.placeholder.com/150x150.jpg?text=No+Image+Found"
 
-                var roomItemsEntity1=roomItemsEntity(room_date= response.body()!!.date,
-                    room_explanation = response.body()!!.explanation,room_title = response.body()!!.title,
-                    room_url = response.body()!!.url)
-                roomDao?.setUrlInfo(roomItemsEntity1)
-                var roomItemsEntity2 =roomDao?.getUrlInfo(date)
+                if (checkImageURL!="https://via.placeholder.com/150x150.jpg?text=No+Image+Found") {
+                    var roomItemsEntity1 = roomItemsEntity(
+                        room_date = response.body()!!.date,
+                        room_explanation = response.body()!!.explanation,
+                        room_title = response.body()!!.title,
+                        room_url = checkImageURL
+                    )
+                    roomDao?.setUrlInfo(roomItemsEntity1)
+                    var roomItemsEntity2 = roomDao?.getUrlInfo(date)
+                    d("check url in model",""+roomItemsEntity2!!.room_url)
+                    listener?.finishedLoading(roomItemsEntity2!!.room_url)
+                }
+                listener?.finishedLoading(checkImageURL)
 
-                listener?.finishedLoading(roomItemsEntity2!!.room_url)
-                d("check url in model",""+checkImageURL)
             }
         })
         //Why does NASA upload a video in Picture Of The Day?!Weird
