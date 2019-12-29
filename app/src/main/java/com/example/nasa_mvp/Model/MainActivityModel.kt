@@ -46,8 +46,9 @@ class MainActivityModel: ContractInterface.Model{
                     room_explanation = response.body()!!.explanation,room_title = response.body()!!.title,
                     room_url = response.body()!!.url)
                 roomDao?.setUrlInfo(roomItemsEntity1)
+                var roomItemsEntity2 =roomDao?.getUrlInfo(date)
 
-                listener?.finishedLoading(checkImageURL)
+                listener?.finishedLoading(roomItemsEntity2!!.room_url)
                 d("check url in model",""+checkImageURL)
             }
         })
