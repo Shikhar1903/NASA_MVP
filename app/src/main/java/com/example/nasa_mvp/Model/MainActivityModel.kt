@@ -32,6 +32,7 @@ class MainActivityModel: ContractInterface.Model{
         db= AppDatabase.getAppDataBase(context)
         roomDao=db?.roomItemsDAO()
 
+
         var roomItemsEntity3=roomDao?.getUrlInfo(date)
         if(roomItemsEntity3?.room_url!=null) {
             listener?.finishedLoading(roomItemsEntity3!!.room_url)
@@ -42,8 +43,11 @@ class MainActivityModel: ContractInterface.Model{
             }
             override fun onResponse(call: Call<Items>, response: Response<Items>) {
 
-               try{ checkImageURL= response.body()!!.url}
-               catch (e:Exception){checkImageURL="https://via.placeholder.com/150x150.jpg?text=No+Image+Found"}
+                checkImageURL = try{
+                    response.body()!!.url
+                } catch (e:Exception){
+                    "https://via.placeholder.com/150x150.jpg?text=No+Image+Found"
+                }
                 if(checkImageURL.indexOf(".jpg")==-1)
                     checkImageURL="https://via.placeholder.com/150x150.jpg?text=No+Image+Found"
 
@@ -54,6 +58,8 @@ class MainActivityModel: ContractInterface.Model{
                         room_title = response.body()!!.title,
                         room_url = checkImageURL
                     )
+
+                    d("","What I want url-"+checkImageURL)
                     roomDao?.setUrlInfo(roomItemsEntity1)
                     var roomItemsEntity2 = roomDao?.getUrlInfo(date)
                     d("check url in model",""+roomItemsEntity2!!.room_url)

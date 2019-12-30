@@ -85,7 +85,6 @@ class MainActivity : AppCompatActivity(),ContractInterface.View {
                 }
 
                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                    progressBar.visibility = View.GONE
                     return false
                 }
             })

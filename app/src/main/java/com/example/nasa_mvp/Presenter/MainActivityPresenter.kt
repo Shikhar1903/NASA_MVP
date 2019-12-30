@@ -13,7 +13,7 @@ class MainActivityPresenter(_view:ContractInterface.View):ContractInterface.Pres
 
     override fun iWasClicked(date:String,context: Context) {
 
-        getImageUrl(date,context)
+        view.updateViewData(getImageUrl(date,context))
         model.setOnFinishedListener(this)
     }
 
